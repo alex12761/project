@@ -1,0 +1,20 @@
+//@import './src/assets/img';
+
+.MainPage{
+  //height: 1000px;
+  margin-top: 75px;
+  flex: 1 1 auto;
+}
+
+.Return{
+  position: fixed;
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
+  color: #61dafb;
+  border-radius: 5%;
+  font-size: 2rem;
+}
