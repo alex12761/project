@@ -19,7 +19,7 @@ public class TelegramNotify : INotify
     private ITelegramBotClient _bot;
     private CancellationTokenSource _cts;
     private List<TelegramUser> _telegramUsers;
-    private string _pathTelegramUsers = @"C:\Users\AERO\RiderProjects\pasha\pasha\telegramUsers.json";
+    private string _pathTelegramUsers = @"telegramUsers.json";
 
     public List<TelegramUser> TelegramUsers
     {
@@ -29,14 +29,17 @@ public class TelegramNotify : INotify
         }
     }
 
-    public void ChangeUser(string userName, bool needNotify)
+    public bool ChangeUser(long chatId, bool needNotify)
     {
-        var user = _telegramUsers.Where(x => x.GivenName.Equals(userName)).FirstOrDefault();
+        var user = _telegramUsers.Where(x => x.ChatId.Equals(chatId)).FirstOrDefault();
         if (user != null)
         {
             user.NeedSend = needNotify;
             SaveChanges();
+            return true;
         }
+
+        return false;
     }
     
     public void Notify(string text)

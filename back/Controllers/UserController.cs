@@ -19,12 +19,14 @@ public class UserController : Controller
 {
     private readonly UserContext _userContext;
     private readonly IConfiguration _configuration;
+    private readonly TelegramNotify _notify;
     // private readonly INotify _notify;
 
-    public UserController(UserContext userContext, IConfiguration configuration)
+    public UserController(UserContext userContext, IConfiguration configuration, TelegramNotify notify)
     {
         _userContext = userContext;
         _configuration = configuration;
+        _notify = notify;
     }
 
     [HttpGet]
@@ -33,6 +35,27 @@ public class UserController : Controller
     public string GetName()
     {
         return HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName).Value;
+    }
+    
+    [HttpPost]
+    [Route("updateTelegramUser")]
+    [Authorize(Roles = "admin")]
+    public bool UpdateTelegramUser(TelegramUserUpdate telegramUser)
+    {
+        return _notify.ChangeUser(telegramUser.ChatId, telegramUser.NeedSend);
+        // var user = _notify.TelegramUsers.FirstOrDefault(x => x.ChatId == telegramUser.ChatId);
+        // if (user == null)
+        //     return false;
+        // user.NeedSend = telegramUser.NeedSend;
+        // return true;
+    }
+    
+    [HttpGet]
+    [Route("getTelegramUsers")]
+    [Authorize(Roles = "admin")]
+    public List<TelegramUser> GetAllTelegramUsers()
+    {
+        return _notify.TelegramUsers;
     }
     
     [HttpGet]
