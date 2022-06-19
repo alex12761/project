@@ -1,5 +1,10 @@
 z10{
     z-index: 999999;
+    display: flex;
+}
+
+.loginForm{
+    margin-bottom: 10%;
 }
 
 input[type=text], input[type=password], input[type=number] {

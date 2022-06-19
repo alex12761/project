@@ -2,6 +2,10 @@
   padding: 4rem 6rem;
 }
 
+.appPageMain{
+    min-height: 100%;
+}
+
 .flex__center {
   display: flex;
   justify-content: center;

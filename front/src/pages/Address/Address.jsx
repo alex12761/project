@@ -4,6 +4,7 @@ import {reqInstance} from "../../services/authService";
 import {apiUrl} from "../../services/authService";
 import {useSelector} from "react-redux";
 import Home from "../../components/Home";
+import {frontip} from "../Admin/Admin";
 
 const Address = () => {
     const [name, setName] = useState("");
@@ -21,10 +22,10 @@ const Address = () => {
             cartItems[items[key][0].name] = items[key].length
         }
         let tempo = {userData: userData, address:addressData, dishes: cartItems};
-        reqInstance.post(apiUrl.concat("/placeorder"), tempo)
+        reqInstance().post(apiUrl.concat("/placeorder"), tempo)
         alert("Заказ оформлен, ожидайте звонка.")
         //По обстоятельствам работаем, просто переносим на другую главную страницу
-        window.location = "http://localhost:3001/menu";
+        window.location = frontip.concat("/menu");
     }
 
     return (

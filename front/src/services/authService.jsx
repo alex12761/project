@@ -1,33 +1,39 @@
-import React, {useState} from 'react';
 import axios from 'axios';
 
 export const apiUrl = 'https://localhost:44315';
 
-export const reqInstance = axios.create({
+export const reqInstance = () => axios.create({
     headers: {
-        Authorization: 'Bearer ' + localStorage.getItem("access_token"),
+        Authorization: 'Bearer ' + localStorage.getItem("token"),
         'Content-Type': 'application/json',
         'accept': 'text/plain'
     }
 })
 
 const authService = {
-    storedJwt: localStorage.getItem('token'),
-    login: (userName, password) => {
-        let data = {
-            userName,
-            password
-        }
-        console.log(data)
-        const resp = reqInstance.post(`${apiUrl}/user/login`, data
-        ).then((response) => {
-            // console.log(response.data);
-            localStorage.setItem('token', response.data);
-        }).catch((error) => {
-            console.log(error)
-            localStorage.setItem('token', "error");
-        })
+    storedJwt: () => {
+        return localStorage.getItem('token')
     },
+    getRole: reqInstance().get(`${apiUrl}/user/getrole`)
+        .then((response) => {
+            return response.data
+        }),
+    // login: new Promise(resolve => (userName, password) => {
+    //     let data = {
+    //         userName,
+    //         password
+    //     }
+    //     console.log(data)
+    //     reqInstance().post(`${apiUrl}/user/login`, data)
+    //         .then((response) => {
+    //             // console.log(response.data);
+    //             localStorage.setItem('token', response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //             localStorage.setItem('token', "error");
+    //         })
+    // },
     getToken: () => {
         console.log(localStorage.getItem('token'))
     },

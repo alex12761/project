@@ -5,23 +5,36 @@ import Login from "../Authorization/Login";
 import {Link} from "react-router-dom";
 import Button from '../Button/index';
 import {useSelector} from "react-redux";
-import authService from "../../services/authService";
+import {apiUrl, reqInstance} from "../../services/authService";
+import {frontip} from "../../pages/Admin/Admin";
 
 const Navbar = () => {
     const [showAuth, setShowAuth] = useState(false);
-    let showModal = () => {
-        setShowAuth(!showAuth)
-    };
+    // let showModal = () => {
+    //     setShowAuth(!showAuth)
+    // };
     let posTop = window.pageYOffset;
     let authToken = localStorage.getItem('token')
     const [auth, setauth] = useState(false)
     useEffect(()=>{
         authToken = localStorage.getItem('token')
-    }, authToken)
+    }, [])
     const [cartTotalPrice, cartItemsCount] = useSelector(state => [
         state.cart.totalPrice,
         state.cart.count,
     ]);
+
+
+    const [role, setRole] = useState("");
+    useEffect(() => {
+        reqInstance().get(`${apiUrl}/user/getrole`)
+            .then((response) => {
+                setRole(response.data);
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
 
     return (
         <nav className="app__navbar" style={showAuth ? {zIndex:-1}: posTop > 200 ? {position: 'fixed', zIndex:5} : null}>
@@ -32,16 +45,19 @@ const Navbar = () => {
                 <li className="p__opensans"><Link to='/'>Главная</Link></li>
                 <li className="p__opensans"><Link to="/aboutus">О нас</Link></li>
                 <li className="p__opensans"><Link to='/menu'>Меню</Link></li>
-                {/*<li className="p__opensans"><Link to='/admin'>Админ</Link></li>*/}
+                {role === "admin"? <li className="p__opensans"><Link to='/admin'>Админ панель</Link></li>:null}
             </ul>
-            {/*<div className="app__navbar-login">*/}
-            {/*    {!auth?*/}
-            {/*        <Link style={{color: "#fff"}} to="/login">Войти</Link>*/}
-            {/*    :<a className="p__opensans" onClick={e => {*/}
-            {/*    authService.logout();*/}
-            {/*    setauth(false)*/}
-            {/*}}>Выйти</a>}*/}
-            {/*</div>*/}
+            <div className="app__navbar-login">
+                {!role?<dd/>
+                    // <Link style={{color: "#fff"}} to="/login">Войти</Link>
+                :<a className="p__opensans" onClick={e => {
+                        localStorage.setItem("token", "");
+                        setRole("")
+                        if (window.location.href == frontip.concat("/admin"))
+                            window.location.replace(frontip.concat("/login"))
+                        console.log()
+                    }}>Выйти</a>}
+            </div>
             {/*<Login isOpen={showAuth} onRequestClose={() => setShowAuth(false)} authState={auth} authSet={setauth}/>*/}
 
 

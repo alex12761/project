@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Home from "../Home";
 import Cart from '../../pages/Cart'
 import Menu from "../Menu/Menu";
@@ -7,7 +7,6 @@ import './MainPage.scss';
 import AboutUsComp from "../AboutUs/AboutUsComp";
 import Address from "../../pages/Address/Address";
 import {Admin} from "../../pages/Admin/Admin";
-import {PrivateRoute} from "../PrivateRoute";
 import Login from "../Authorization/Login";
 
 function MainPage() {
@@ -39,8 +38,8 @@ function MainPage() {
             <Route path="/menu" element={<Menu/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/address" element={<Address/>}/>
-            <Route path="login" element={<Login/>}/>
-            <Route path="/admin" element={<PrivateRoute><Admin/></PrivateRoute>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/admin" element={<Admin/>}/>
         </Routes>
         <button className="Return" onClick={rollBack} style={{display: visible ? 'inline' : 'none'}}>&#8593;</button>
     </div>

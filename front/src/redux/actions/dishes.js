@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {apiUrl} from "../../services/authService";
 
 export const Types = {
   SET_ITEMS: 'dish@SET:ITEMS',
@@ -17,7 +18,7 @@ const Actions = {
   fetchItems: ({ category }) => dispatch => {
     dispatch(Actions.isLoading);
     return axios
-        .get('https://localhost:44315/dish/get?category='.concat(category ? category: 'all'))
+        .get(apiUrl.concat('/dish/get?category=').concat(category ? category: 'all'))
       .then(({ data }) => {
         dispatch(Actions.setItems(data));
       })
