@@ -16,9 +16,6 @@ function Menu() {
     ]);
 
     const addToCart = React.useCallback(obj => dispatch(cartActions.addToCart(obj)), [dispatch]);
-    // const selectSort = React.useCallback(obj => dispatch(filtersActions.setSortBy(obj.value)), [
-    //     dispatch,
-    // ]);
     const selectCategory = React.useCallback(
         index => {
             dispatch(filtersActions.setCategory(index));
@@ -42,7 +39,7 @@ function Menu() {
                         <div className={classNames('content__top', {noclick: isLoading})}>
                             <Categories
                                 activeItem={filters.category}
-                                items={['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}
+                                items={['Все', 'Супы', 'Выпечка', 'Салаты', 'Напитки', 'Горячие блюда']}
                                 onClick={selectCategory}
                             />
                         </div>

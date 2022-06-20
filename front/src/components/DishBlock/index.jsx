@@ -30,7 +30,7 @@ const DishBlock = ({ id, image, title, price, cartItems, onAdd, isLoading }) => 
       </div>
       <h4 className="dish-block__title">{title}</h4>
       <div className="dish-block__bottom">
-        <div className="dish-block__price">от {price} ₽</div>
+        <div className="dish-block__price">   {price} ₽</div>
         <Button onClick={onAddClick} className="button--add" outline>
           <svg
             width="12"

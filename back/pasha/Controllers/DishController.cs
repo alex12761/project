@@ -23,7 +23,8 @@ public class DishController : Controller
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
     public Dish Create([FromBody] Dish newDish)
     {
-        newDish.Id = _dishContext.Dishes.Max(x => x.Id) + 1;
+        var dishes = _dishContext.Dishes;
+        newDish.Id = dishes.Count() > 0 ? dishes.Max(x => x.Id) + 1 : 1;
         var dish = _dishContext.Dishes.Add(newDish).Entity;
         _dishContext.SaveChanges();
         return dish;
