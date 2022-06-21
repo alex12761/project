@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const apiUrl = 'https://localhost:44315';
+export const apiUrl = 'http://localhost:5045';
 
 export const reqInstance = () => axios.create({
     headers: {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {apiUrl, reqInstance} from "../../services/authService";
 import DishItem from "../../components/AdminComponents/DishItem";
 
-export const frontip = "http://localhost:3001";
+export const frontip = "http://localhost:3000";
 
 export const Admin = () => {
     // console.log("i, here")

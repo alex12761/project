@@ -1,0 +1,19 @@
+front: 
+cd {путь к папке front}
+npm install
+npm start
+// сайт по умолчанию будет крутить на localhost:3000
+// страничка редактирования меню /admin. логин = admin пароль = admin
+
+ps:
+возможно нужно будет изменить ссылки на сайты
+	- файл \src\services\authService.jsx = 3 строка apiUrk = http://localhost:5045
+	- файл \src\pages\Admin\Admin.jsx = 5 строкаа frontip = http://localhost:3000
+
+
+
+back:
+cd {путь к папке back}/pasha
+dotnet run
+// сваггер будет крутиться на localhost:5045/swagger
+// файл БД на sqllite, чтобы не надо было заморачиваться с базой. файл = \pasha\db.sqlite
